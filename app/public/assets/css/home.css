@@ -1,0 +1,295 @@
+body{
+    background-image: linear-gradient(to right, #0485D8, #02AFED);
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   
+}
+
+.contentwrapper{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.section{
+    text-align: justify;
+}
+
+.homewrapper{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    min-height: 70vh;
+    height: auto;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    margin-left: 350px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    background-color: #F6F6F6;
+  
+}
+
+.section {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'poppins', sans-serif;
+    font-size: 16px;
+    color: #191919;
+    margin-bottom: 20px;
+}
+
+p{
+    color: white;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item {
+    width: 180px;
+    height: 180px;
+    background-color: #f0f0f0; /* Cor de fundo para identificar os blocos */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.grid-item p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+    color: #333;
+}
+
+.grid-item svg {
+    width: 40px;
+    height: 40px;
+    fill: #555; /* Cor do ícone */
+}
+
+
+
+
+
+
+
+.icon{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 40px;
+}
+
+.iconMat{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 38px;
+}
+
+.iconBio{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 45px;
+}
+
+.iconQui{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 62px;
+}
+
+.iconFis{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 52px;
+}
+
+
+.iconSoc{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 63px;
+}
+
+.iconIdi{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 60px;
+}
+
+.iconPor{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 40px;
+}
+
+
+  
+  .botao-fixo:hover {
+    background-color: #2980b9;
+  }
+
+
+p {
+    font-family: 'poppins', sans-serif;
+    font-size: 14px;
+    color: white;
+}
+
+.homeH2{
+    text-align: center;
+    font-size: 24px;
+}
+
+body.dark-mode .homewrapper{
+    background-color: #191919;
+    
+}
+
+body.dark-mode .homeH2 {
+    color: white;
+}
+
+body.dark-mode h2 {
+    color: white;
+}
+
+body.monochrome {
+    filter: grayscale(100%);
+}
+
+body.monochrome{
+    background-image: linear-gradient(to right, #191919, #191919);
+}
+
+
+@media (max-width: 1400px) {
+    .homewrapper {
+        margin-left: 100px;
+    }
+
+    .classificacaocard{
+        width: 300px;
+        height: 300px;
+    }
+
+    .rankingh2{
+        font-size: 18px;
+    }
+
+   
+
+}
+
+body.monochrome {
+    filter: grayscale(100%);
+}
+
+body.monochrome{
+    background-image: linear-gradient(to right, #191919, #191919);
+}
+
+@media (max-width: 1400px) {
+    .homewrapper {
+        margin-left: 100px;
+        width: 70vw;   
+       
+    }
+
+    .grafico{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .homewrapper {
+        margin-left: 100px;
+        width: 70vw;   
+        margin-top: 300px;
+    }
+
+    .grafico{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .homewrapper {
+        margin-left: 100px;
+        width: 70vw;   
+        margin-top: 500px;
+    }
+
+    .grafico{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 800px) {
+    .rankingh1 {
+        font-size: 32px;
+    }
+
+    .homewrapper {
+        margin-top: 500px;
+        margin-left: 0;
+        width: 90vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .rankingh1 {
+        font-size: 32px;
+    }
+
+    .homewrapper {
+        margin-top: 1700px;
+        margin-left: 0;
+        width: 90vw;
+    }
+}
+
+
+
+@media (max-width: 400px) {
+    .rankingh1 {
+        font-size: 24px;
+    }
+
+    .homewrapper {
+        margin-top: 2000px;
+    }
+}
+
