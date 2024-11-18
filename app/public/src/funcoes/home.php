@@ -1,12 +1,17 @@
 <?php
+
 session_start();
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['password']) == true)) {
-    unset($_SESSION['email']);
-    unset($_SESSION['password']);
-    header('Location: ../index.php');
+
+// Verifica se o usuário está autenticado
+if (!isset($_SESSION['email'])) {
+    header('Location: ../index.php'); // Redireciona para a página de login
+    exit;
 }
+
+// Dados do usuário logado
 $logado = $_SESSION['email'];
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Usuário';
+
 
 // URL da API
 $apiUrl = 'http://localhost/approveapi/api/api.php/materias';
@@ -88,7 +93,7 @@ foreach ($materias as $materia) {
                                 ?>
                                 <a href="materia.php?id=<?= htmlspecialchars($materia['id']); ?>" class="grid-item" style="background-color: <?= $style['color']; ?>;">
                                     <?= $style['svg']; ?>
-                                    <p><?= htmlspecialchars($materia['nome']); ?></p>
+                                    <p><?= htmlspecialchars($materia['materias_nome']); ?></p>
                                 </a>
                             <?php endforeach; ?>
                         </div>
