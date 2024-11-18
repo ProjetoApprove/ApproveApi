@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,15 +85,14 @@
             const result = await response.json();
 
             if (response.ok) {
-                // Login bem-sucedido, redirecionar ou mostrar mensagem
+                // Login bem-sucedido, redirecionar para a página inicial
                 alert('Login bem-sucedido!');
-                window.location.href = '../funcoes/home.php'; // Redireciona para a página de home
+                window.location.href = '../funcoes/home.php';
             } else {
-                // Se houve erro (senha incorreta ou usuário não encontrado)
+                // Exibir mensagens de erro personalizadas
                 alert(result.error || 'Erro no login');
             }
         } catch (error) {
-            // Em caso de falha na requisição
             console.error('Erro na requisição:', error);
             alert('Ocorreu um erro. Tente novamente mais tarde.');
         }
