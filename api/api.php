@@ -139,14 +139,171 @@ switch ($uri) {
                             echo json_encode(['error' => 'Método não permitido.']);
                         }
                         break;
+    case '/api.php/usuario':  // Rota para obter o nome do usuário
+                            if ($requestMethod === 'GET') {
+                                getUsuarioNome(); // Função que buscará o nome do usuário
+                            } else {
+                                http_response_code(405);
+                                echo json_encode(['error' => 'Método não permitido.']);
+                            }
+                            break;
+    case '/api.php/usuarios-pontuacoes': // Rota para obter nomes de usuários e pontuações
+                                if ($requestMethod === 'GET') {
+                                    getUsuariosPontuacoes(); // Chama a função para obter os dados
+                                } else {
+                                    http_response_code(405);
+                                    echo json_encode(['error' => 'Método não permitido.']);
+                                }
+                                break;
+    case '/api.php/estatisticas-geral':
+                                    if ($requestMethod === 'GET') {
+                                        getEstatisticasGeral(); // Função que retorna estatísticas gerais
+                                    } else {
+                                        http_response_code(405);
+                                        echo json_encode(['error' => 'Método não permitido.']);
+                                    }
+                                    break;
+    case '/api.php/estatisticas-materia':
+                                        if ($requestMethod === 'GET') {
+                                            $materia = $_GET['materia'] ?? null;
+                                            getEstatisticasMateria($materia);
+                                        } else {
+                                            http_response_code(405);
+                                            echo json_encode(['error' => 'Método não permitido.']);
+                                        }
+                                        break;
+    
+                            
+                        
                     default:
                         http_response_code(404);
                         echo json_encode(['error' => 'Rota não encontrada.']);
                         break;
                 }
+
+
+
+function getEstatisticasMateria($materia) {
+                    global $conexao, $usuarioId;
                 
+                    if (!$materia) {
+                        http_response_code(400);
+                        echo json_encode(['error' => 'Matéria não especificada.']);
+                        return;
+                    }
+                
+                    // Total de perguntas na matéria
+                    $sqlTotalPerguntas = "SELECT COUNT(*) as totalPerguntasMateria 
+                                          FROM perguntas p
+                                          JOIN questionarios q ON p.questionario_id = q.questionario_id
+                                          JOIN subconteudos s ON q.subconteudo_id = s.subconteudo_id
+                                          JOIN materias m ON s.materia_id = m.id
+                                          WHERE m.materias_nome = ?";
+                    $stmt = $conexao->prepare($sqlTotalPerguntas);
+                    $stmt->bind_param('s', $materia);
+                    $stmt->execute();
+                    $resultTotal = $stmt->get_result()->fetch_assoc();
+                
+                    $totalPerguntasMateria = $resultTotal['totalPerguntasMateria'];
+                
+                    // Estatísticas do usuário na matéria
+                    $sqlEstatisticas = "SELECT COUNT(*) as totalRespondidas, SUM(r.correta) as acertos 
+                                        FROM respostas_usuarios r
+                                        JOIN perguntas p ON r.pergunta_id = p.pergunta_id
+                                        JOIN questionarios q ON p.questionario_id = q.questionario_id
+                                        JOIN subconteudos s ON q.subconteudo_id = s.subconteudo_id
+                                        JOIN materias m ON s.materia_id = m.id
+                                        WHERE r.usuario_id = ? AND m.materias_nome = ?";
+                    $stmtEst = $conexao->prepare($sqlEstatisticas);
+                    $stmtEst->bind_param('is', $usuarioId, $materia);
+                    $stmtEst->execute();
+                    $result = $stmtEst->get_result()->fetch_assoc();
+                
+                    $totalRespondidas = $result['totalRespondidas'];
+                    $acertos = $result['acertos'];
+                
+                    // Calcula percentuais
+                    $percentualAcertos = $totalRespondidas > 0 ? ($acertos / $totalRespondidas) * 100 : 0;
+                    $percentualPerguntasRespondidas = $totalPerguntasMateria > 0 ? ($totalRespondidas / $totalPerguntasMateria) * 100 : 0;
+                
+                    // Retorna dados
+                    echo json_encode([
+                        'totalPerguntasMateria' => $totalPerguntasMateria,
+                        'totalRespondidas' => $totalRespondidas,
+                        'acertos' => $acertos,
+                        'percentualAcertos' => $percentualAcertos,
+                        'percentualPerguntasRespondidas' => $percentualPerguntasRespondidas,
+                    ]);
+                }
+    
+                
+function getEstatisticasGeral() {
+                    global $conexao, $usuarioId;
+                
+                    // Total de perguntas
+                    $sqlTotalPerguntas = "SELECT COUNT(*) as totalPerguntasMateria FROM perguntas";
+                    $resultTotal = mysqli_query($conexao, $sqlTotalPerguntas);
+                    $totalPerguntasMateria = mysqli_fetch_assoc($resultTotal)['totalPerguntasMateria'];
+                
+                    // Estatísticas do usuário
+                    $sqlEstatisticas = "SELECT COUNT(*) as totalRespondidas, SUM(r.correta) as acertos 
+                                        FROM respostas_usuarios r
+                                        WHERE r.usuario_id = ?";
+                    $stmt = $conexao->prepare($sqlEstatisticas);
+                    $stmt->bind_param('i', $usuarioId);
+                    $stmt->execute();
+                    $result = $stmt->get_result()->fetch_assoc();
+                
+                    $totalRespondidas = $result['totalRespondidas'];
+                    $acertos = $result['acertos'];
+                
+                    // Calcula percentuais
+                    $percentualAcertos = $totalRespondidas > 0 ? ($acertos / $totalRespondidas) * 100 : 0;
+                    $percentualPerguntasRespondidas = $totalPerguntasMateria > 0 ? ($totalRespondidas / $totalPerguntasMateria) * 100 : 0;
+                
+                    // Retorna dados
+                    echo json_encode([
+                        'totalPerguntasMateria' => $totalPerguntasMateria,
+                        'totalRespondidas' => $totalRespondidas,
+                        'acertos' => $acertos,
+                        'percentualAcertos' => $percentualAcertos,
+                        'percentualPerguntasRespondidas' => $percentualPerguntasRespondidas,
+                    ]);
+                }       
+                
+                
+
+
             
-   
+function getUsuariosPontuacoes() {
+                    global $conexao;
+                
+                    $sql = "SELECT u.username, p.pontos 
+                            FROM usuarios u 
+                            LEFT JOIN pontuacoes p ON u.id = p.usuario_id";
+                    $result = mysqli_query($conexao, $sql);
+                
+                    if (mysqli_num_rows($result) > 0) {
+                        $usuariosPontuacoes = [];
+                        
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $usuariosPontuacoes[] = [
+                                'username' => $row['username'],
+                                'pontos' => $row['pontos'] ?? 0 // Se não houver pontuação, define como 0
+                            ];
+                        }
+                
+                        // Retorna os dados em formato JSON
+                        http_response_code(200);
+                        echo json_encode(['usuarios_pontuacoes' => $usuariosPontuacoes]);
+                    } else {
+                        // Caso não existam usuários ou pontuações
+                        http_response_code(404);
+                        echo json_encode(['error' => 'Nenhum usuário ou pontuação encontrada.']);
+                    }
+                
+                    mysqli_free_result($result);
+                }   
 
 
 function getTotalRespostas() {
@@ -346,6 +503,8 @@ function getCorrecoes() {
 }
 
 
+
+
 function getAlternativas() {
     global $conexao;
 
@@ -532,7 +691,35 @@ function getSubconteudos() {
     mysqli_stmt_close($stmt);
 }
 
+function getUsuarioNome() {
+    global $conexao;
 
+    // Obtém o usuário_id dos parâmetros da URL
+    $usuario_id = isset($_GET['usuario_id']) ? intval($_GET['usuario_id']) : null;
+
+    if (is_null($usuario_id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'O parâmetro usuario_id é obrigatório.']);
+        return;
+    }
+
+    // Consulta SQL para buscar o nome do usuário pelo ID
+    $sql = "SELECT username FROM usuarios WHERE id = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, 'i', $usuario_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        http_response_code(200);
+        echo json_encode(['username' => $row['username']]);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Usuário não encontrado.']);
+    }
+
+    mysqli_stmt_close($stmt);
+}
 
 // Função de cadastro de usuário
 function registerUser() {
