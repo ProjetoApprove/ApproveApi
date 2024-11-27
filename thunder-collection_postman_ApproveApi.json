@@ -1,0 +1,408 @@
+{
+    "info": {
+        "_postman_id": "9d1d3643-8d81-4d59-b024-2a581dc43d75",
+        "name": "ApproveApi",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "registerUser",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/register",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "register"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"name\": \"testeapi223\",\n  \"email\": \"usuario223@example.com\",\n  \"password\": \"1234\"\n\n}\n"
+                }
+            }
+        },
+        {
+            "name": "loginUser",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/login",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "login"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"email\": \"julia@gmASail.com\",\n    \"password\": \"123\"\n}"
+                }
+            }
+        },
+        {
+            "name": "postRespostaQuestionario",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/adicionar-resposta-questionario",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "adicionar-resposta-questionario"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"usuario_id\": 21,\n  \"questionario_id\": 5\n}"
+                }
+            }
+        },
+        {
+            "name": "postRespostaUsuario",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/adicionar-resposta",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "adicionar-resposta"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"usuario_id\": 21,\n  \"pergunta_id\": 11,\n  \"alternativa_id\": 4,\n  \"correta\": 0\n}"
+                }
+            }
+        },
+        {
+            "name": "postPontuacao",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/pontuacoes",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "pontuacoes"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"usuario_id\": 51,\n  \"pontos\": 20\n}"
+                }
+            }
+        },
+        {
+            "name": "getMaterias",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/materias",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "materias"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getSubconteudosByMateriaId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/subconteudos?materia_id=5",
+                    "query": [
+                        {
+                            "key": "materia_id",
+                            "value": "5"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "subconteudos"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getVideoaulasBySubconteudoId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/videoaulas?subconteudo_id=1",
+                    "query": [
+                        {
+                            "key": "subconteudo_id",
+                            "value": "1"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "videoaulas"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getQuestionariosBySubconteudoId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/questionarios?subconteudo_id=1",
+                    "query": [
+                        {
+                            "key": "subconteudo_id",
+                            "value": "1"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "questionarios"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getAlternativasByPerguntaId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/alternativas?pergunta_id=1",
+                    "query": [
+                        {
+                            "key": "pergunta_id",
+                            "value": "1"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "alternativas"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getPerguntasByQuestionarioId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/perguntas?questionario_id=5",
+                    "query": [
+                        {
+                            "key": "questionario_id",
+                            "value": "5"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "perguntas"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getCorrecoesByPerguntaId",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/correcoes?pergunta_id=1",
+                    "query": [
+                        {
+                            "key": "pergunta_id",
+                            "value": "1"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "correcoes"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getPontuacao",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/pontuacoes?usuario_id=21",
+                    "query": [
+                        {
+                            "key": "usuario_id",
+                            "value": "21"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "pontuacoes"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getUsuario",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/usuario?usuario_id=32",
+                    "query": [
+                        {
+                            "key": "usuario_id",
+                            "value": "32"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "usuario"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "getUsuarioPontuacao",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/usuarios-pontuacoes",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "usuarios-pontuacoes"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "putPontuacao",
+            "request": {
+                "method": "PUT",
+                "url": {
+                    "raw": "localhost/approveapi/api/api.php/pontuacoes",
+                    "path": [
+                        "approveapi",
+                        "api",
+                        "api.php",
+                        "pontuacoes"
+                    ],
+                    "host": [
+                        "localhost"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"usuario_id\": 51,\n  \"pontos\": 70\n}"
+                }
+            }
+        }
+    ]
+}
